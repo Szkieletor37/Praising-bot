@@ -20,9 +20,10 @@ if($message_type != "text") exit;
 $return_message_text = "今日も生きててえらいえらい！";
 
 // insert usleep() to make bots looks real
-$random = rand(100, 300) 
-$sleeptime = random / 100.0 * 1000000
-usleep($sleeptime);
+//$random = rand(100, 300) 
+//$sleeptime = random / 100.0 * 1000000
+//usleep($sleeptime);
+usleep(2000000);
  
 //返信実行
 sending_messages($accessToken, $replyToken, $message_type, $return_message_text);
