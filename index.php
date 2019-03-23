@@ -1,5 +1,5 @@
 <?php
 
 echo "Hello, Heroku!!!";
-$sleeptime = 1.0;
-echo sleeptime;
+$sleeptime = rand(100, 300)/100.0;
+echo $sleeptime;
