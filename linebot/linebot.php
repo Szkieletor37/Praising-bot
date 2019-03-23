@@ -21,8 +21,8 @@ $return_message_text = "今日も生きててえらいえらい！";
 
 // insert sleep() to make bots looks real
 $random = rand(100, 300) 
-$sleeptime = random / 100.0
-sleep(sleeptime);
+$sleeptime = random / 100.0 * 1000000
+usleep(sleeptime);
  
 //返信実行
 sending_messages($accessToken, $replyToken, $message_type, $return_message_text);
