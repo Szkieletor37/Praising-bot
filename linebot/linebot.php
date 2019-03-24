@@ -43,8 +43,8 @@ $text_segment1 = $array_text_segment1[rand() % 1];
 $text_segment2 = $array_text_segment2[rand() % 1];
 $text_segment3 = $array_text_segment3[rand() % 1];
 
-$return_message_text = $text_segment1 . $text_segment2 . $text_segment3;
-$return_message_text = "今日も生きててえらいえらい！";
+$return_message_text1 = $text_segment1 . $text_segment2 . $text_segment3;
+$return_message_text2 = "今日も生きててえらいえらい！";
 
 // insert usleep() to make bots looks real
 $random = rand(100, 300); 
@@ -52,7 +52,8 @@ $sleeptime = $random / 100.0 * 1000000;
 usleep($sleeptime);
  
 //返信実行
-sending_messages($accessToken, $replyToken, $message_type, $return_message_text);
+sending_messages($accessToken, $replyToken, $message_type, $return_message_text1);
+sending_messages($accessToken, $replyToken, $message_type, $return_message_text2);
 ?>
 <?php
 //メッセージの送信
