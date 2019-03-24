@@ -37,7 +37,7 @@ if($message_text != "おはよう！")
 
 $array_text_segment1 = array("今日も");
 $array_text_segment2 = array("生きてて");
-$array_text_segment3 = array("えらいえらい！");
+$array_text_segment3 = array("えらいえらい！!");
 
 $text_segment1 = $array_text_segment1[rand() % 1];
 $text_segment2 = $array_text_segment2[rand() % 1];
