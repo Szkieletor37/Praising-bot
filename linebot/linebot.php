@@ -1,9 +1,24 @@
 <?php
  
 echo "Hello, Heroku!";
+/*echo rand() % 1;
+$array1 = array("array!");
+echo $array1[rand() % 1];
+$array_text_segment1 = array("今日も");
+$array_text_segment2 = array("生きてて");
+$array_text_segment3 = array("えらいえらい！");
+
+$text_segment1 = $array_text_segment1[rand() % 1];
+$text_segment2 = $array_text_segment2[rand() % 1];
+$text_segment3 = $array_text_segment3[rand() % 1];
+
+$return_message_text = $text_segment1 . $text_segment2 . $text_segment3;
+echo $return_message_text;
+ */
 
 $accessToken = 'mWbndsAPe5j0UvAvpkll+GfFdluug8RKZiLLta2cd3qNBiK/wF1OgA1ifzxFYZ8QwvaF3wJJCUL2Pvtfwxi3o+P+B7ImZt4dR6XZpY36/7Eai38V0jucNFH4U2Xhd1ZfZBcTfuqKeYmYGxOzFTdT0AdB04t89/1O/w1cDnyilFU=';
- 
+//$accessToken =  'y7LKpDt4OxHVS9qafyajq6bWlyc7H/rni0bXY65TIOZ0uJbRlflXub10GneSJebGUgjINXHXUasop6VJORPXtYAI8dsE1lDjlPdGgpNetRriWpB7xWc5Bwysq1ZIJ7i8dXggvFXCHP4WCxtw4TuXpwdB04t89/1O/w1cDnyilFU=';
+
 //ユーザーからのメッセージ取得
 $json_string = file_get_contents('php://input');
 $json_object = json_decode($json_string);
@@ -20,6 +35,15 @@ if($message_type != "text") exit;
 if($message_text != "おはよう！") 
 	exit;
 
+$array_text_segment1 = array("今日も");
+$array_text_segment2 = array("生きてて");
+$array_text_segment3 = array("えらいえらい！");
+
+$text_segment1 = $array_text_segment1[rand() % 1];
+$text_segment2 = $array_text_segment2[rand() % 1];
+$text_segment3 = $array_text_segment3[rand() % 1];
+
+$return_message_text = $text_segment1 . $text_segment2 . $text_segment3;
 $return_message_text = "今日も生きててえらいえらい！";
 
 // insert usleep() to make bots looks real
