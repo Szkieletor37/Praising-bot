@@ -1,20 +1,7 @@
 <?php
+include_once "mode_goodMorning.php";
  
 echo "Hello, Heroku!";
-/*echo rand() % 1;
-$array1 = array("array!");
-echo $array1[rand() % 1];
-$array_text_segment1 = array("今日も");
-$array_text_segment2 = array("生きてて");
-$array_text_segment3 = array("えらいえらい！");
-
-$text_segment1 = $array_text_segment1[rand() % 1];
-$text_segment2 = $array_text_segment2[rand() % 1];
-$text_segment3 = $array_text_segment3[rand() % 1];
-
-$return_message_text = $text_segment1 . $text_segment2 . $text_segment3;
-echo $return_message_text;
- */
 
 $accessToken = 'mWbndsAPe5j0UvAvpkll+GfFdluug8RKZiLLta2cd3qNBiK/wF1OgA1ifzxFYZ8QwvaF3wJJCUL2Pvtfwxi3o+P+B7ImZt4dR6XZpY36/7Eai38V0jucNFH4U2Xhd1ZfZBcTfuqKeYmYGxOzFTdT0AdB04t89/1O/w1cDnyilFU=';
 //$accessToken =  'y7LKpDt4OxHVS9qafyajq6bWlyc7H/rni0bXY65TIOZ0uJbRlflXub10GneSJebGUgjINXHXUasop6VJORPXtYAI8dsE1lDjlPdGgpNetRriWpB7xWc5Bwysq1ZIJ7i8dXggvFXCHP4WCxtw4TuXpwdB04t89/1O/w1cDnyilFU=';
@@ -30,31 +17,47 @@ $message_text = $json_object->{"events"}[0]->{"message"}->{"text"};    //メッ�
  
 //メッセージタイプが「text」以外のときは何も返さず終了
 if($message_type != "text") exit;
+
+define("GOODMORNING", 1);
+define("OUTGOING", 2);
+define("COMEHOME", 3);
+define("GOODNIGHT", 4);
  
 //返信メッセージ
-if($message_text != "おはよう！") 
+switch ($message_text) {
+case "おはよう！":
+	$mode = GOODMORNING;
+	break;
+case "行ってきます！":
+	$mode = OUTGOING;
+	break;
+case "ただいま！":
+	$mode = COMEHOME;
+	break;
+case "おやすみ！":
+	$mode = GOODNIGHT;
+	break;
+default:
 	exit;
+}
 
-$array_text_segment1 = array("今日も");
-$array_text_segment2 = array("生きてて");
-$array_text_segment3 = array("えらいえらい！");
-
-$text_segment1 = $array_text_segment1[rand() % 1];
-$text_segment2 = $array_text_segment2[rand() % 1];
-$text_segment3 = $array_text_segment3[rand() % 1];
-
-$return_message_text1 = $text_segment1 . $text_segment2 . $text_segment3;
-$return_message_text2 = "今日も生きててえらいえらい！";
+switch($mode) {
+case GOODMORNING:
+	$return_message_text = mode_goodMorning();
+	break;
+default:
+	exit;
+}
 
 // insert usleep() to make bots looks real
-$random = rand(100, 300); 
+$random = rand(400, 700); 
 $sleeptime = $random / 100.0 * 1000000;
 usleep($sleeptime);
  
 //返信実行
-//sending_messages($accessToken, $replyToken, $message_type, $return_message_text1);
-sending_messages($accessToken, $replyToken, $message_type, $return_message_text2);
+sending_messages($accessToken, $replyToken, $message_type, $return_message_text);
 ?>
+
 <?php
 //メッセージの送信
 function sending_messages($accessToken, $replyToken, $message_type, $return_message_text){
