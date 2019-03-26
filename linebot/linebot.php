@@ -1,29 +1,27 @@
 <?php
-include_once "mode_goodMorning.php";
+include_once "return_text_message.php";
+include_once "mode.php";
  
 echo "Hello, Heroku!";
 
-$accessToken = 'mWbndsAPe5j0UvAvpkll+GfFdluug8RKZiLLta2cd3qNBiK/wF1OgA1ifzxFYZ8QwvaF3wJJCUL2Pvtfwxi3o+P+B7ImZt4dR6XZpY36/7Eai38V0jucNFH4U2Xhd1ZfZBcTfuqKeYmYGxOzFTdT0AdB04t89/1O/w1cDnyilFU=';
-//$accessToken =  'y7LKpDt4OxHVS9qafyajq6bWlyc7H/rni0bXY65TIOZ0uJbRlflXub10GneSJebGUgjINXHXUasop6VJORPXtYAI8dsE1lDjlPdGgpNetRriWpB7xWc5Bwysq1ZIJ7i8dXggvFXCHP4WCxtw4TuXpwdB04t89/1O/w1cDnyilFU=';
+//heroku
+//$accessToken = 'mWbndsAPe5j0UvAvpkll+GfFdluug8RKZiLLta2cd3qNBiK/wF1OgA1ifzxFYZ8QwvaF3wJJCUL2Pvtfwxi3o+P+B7ImZt4dR6XZpY36/7Eai38V0jucNFH4U2Xhd1ZfZBcTfuqKeYmYGxOzFTdT0AdB04t89/1O/w1cDnyilFU=';
+//test
+$accessToken =  'y7LKpDt4OxHVS9qafyajq6bWlyc7H/rni0bXY65TIOZ0uJbRlflXub10GneSJebGUgjINXHXUasop6VJORPXtYAI8dsE1lDjlPdGgpNetRriWpB7xWc5Bwysq1ZIJ7i8dXggvFXCHP4WCxtw4TuXpwdB04t89/1O/w1cDnyilFU=';
 
-//ユーザーからのメッセージ取得
-$json_string = file_get_contents('php://input');
-$json_object = json_decode($json_string);
- 
-//取得データ
-$replyToken = $json_object->{"events"}[0]->{"replyToken"};        //返信用トークン
-$message_type = $json_object->{"events"}[0]->{"message"}->{"type"};    //メッセージタイプ
-$message_text = $json_object->{"events"}[0]->{"message"}->{"text"};    //メッセージ内容
- 
-//メッセージタイプが「text」以外のときは何も返さず終了
-if($message_type != "text") exit;
+$json_input = file_get_contents('php://input');
+$json_object = json_decode($json_input);
 
-define("GOODMORNING", 1);
-define("OUTGOING", 2);
-define("COMEHOME", 3);
-define("GOODNIGHT", 4);
- 
-//返信メッセージ
+$replyToken = $json_object->{"events"}[0]->{"replyToken"};
+$input_message_type = $json_object->{"events"}[0]->{"message"}->{"type"};
+$message_text = $json_object->{"events"}[0]->{"message"}->{"text"};
+$user_id = $json_object->{"events"}[0]->{"source"}->{"userid"};
+
+if($input_message_type != "text")
+	exit;
+
+$reply_message_type = "text";
+
 switch ($message_text) {
 case "おはよう！":
 	$mode = GOODMORNING;
@@ -43,47 +41,45 @@ default:
 
 switch($mode) {
 case GOODMORNING:
-	$return_message_text = mode_goodMorning();
+	$return_message_text = return_text_message($mode);
 	break;
 default:
 	exit;
 }
 
-// insert usleep() to make bots looks real
+// insert usleep() to make bot's reply look real
 $random = rand(400, 700); 
 $sleeptime = $random / 100.0 * 1000000;
 usleep($sleeptime);
- 
-//返信実行
-sending_messages($accessToken, $replyToken, $message_type, $return_message_text);
+
+sending_messages($accessToken, $replyToken, $reply_message_type, $return_message_text);
 ?>
 
 <?php
-//メッセージの送信
-function sending_messages($accessToken, $replyToken, $message_type, $return_message_text){
-    //レスポンスフォーマット
-    $response_format_text = [
-        "type" => $message_type,
-        "text" => $return_message_text
-    ];
- 
-    //ポストデータ
-    $post_data = [
-        "replyToken" => $replyToken,
-        "messages" => [$response_format_text]
-    ];
- 
-    //curl実行
-    $ch = curl_init("https://api.line.me/v2/bot/message/reply");
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-        'Content-Type: application/json; charser=UTF-8',
-        'Authorization: Bearer ' . $accessToken
-    ));
-    $result = curl_exec($ch);
-    curl_close($ch);
+
+function sending_messages($accessToken, $replyToken, $reply_message_type, $return_message_text) {
+
+	$reply_messages = [
+		"type" => $reply_message_type,
+		"text" => $return_message_text
+	];
+	
+	$post_data = [
+		"replyToken" => $replyToken,
+		"messages" => [$reply_messages]
+	];
+
+	$ch = curl_init("https://api.line.me/v2/bot/message/reply");
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+	curl_setopt($ch, CURLOPT_HTTPHEADER,
+		array(
+			'Content-Type: application/json; charser=UTF-8',
+			'Authorization: Bearer ' . $accessToken
+		)
+	);
+	$result = curl_exec($ch);
+	curl_close($ch); 
 }
 ?>
