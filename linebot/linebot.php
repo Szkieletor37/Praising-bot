@@ -5,9 +5,9 @@ include_once "mode.php";
 echo "Hello, Heroku!";
 
 //heroku
-//$accessToken = 'mWbndsAPe5j0UvAvpkll+GfFdluug8RKZiLLta2cd3qNBiK/wF1OgA1ifzxFYZ8QwvaF3wJJCUL2Pvtfwxi3o+P+B7ImZt4dR6XZpY36/7Eai38V0jucNFH4U2Xhd1ZfZBcTfuqKeYmYGxOzFTdT0AdB04t89/1O/w1cDnyilFU=';
+$accessToken = 'mWbndsAPe5j0UvAvpkll+GfFdluug8RKZiLLta2cd3qNBiK/wF1OgA1ifzxFYZ8QwvaF3wJJCUL2Pvtfwxi3o+P+B7ImZt4dR6XZpY36/7Eai38V0jucNFH4U2Xhd1ZfZBcTfuqKeYmYGxOzFTdT0AdB04t89/1O/w1cDnyilFU=';
 //test
-$accessToken =  'y7LKpDt4OxHVS9qafyajq6bWlyc7H/rni0bXY65TIOZ0uJbRlflXub10GneSJebGUgjINXHXUasop6VJORPXtYAI8dsE1lDjlPdGgpNetRriWpB7xWc5Bwysq1ZIJ7i8dXggvFXCHP4WCxtw4TuXpwdB04t89/1O/w1cDnyilFU=';
+//$accessToken =  'y7LKpDt4OxHVS9qafyajq6bWlyc7H/rni0bXY65TIOZ0uJbRlflXub10GneSJebGUgjINXHXUasop6VJORPXtYAI8dsE1lDjlPdGgpNetRriWpB7xWc5Bwysq1ZIJ7i8dXggvFXCHP4WCxtw4TuXpwdB04t89/1O/w1cDnyilFU=';
 
 $json_input = file_get_contents('php://input');
 $json_object = json_decode($json_input);
@@ -15,7 +15,7 @@ $json_object = json_decode($json_input);
 $replyToken = $json_object->{"events"}[0]->{"replyToken"};
 $input_message_type = $json_object->{"events"}[0]->{"message"}->{"type"};
 $message_text = $json_object->{"events"}[0]->{"message"}->{"text"};
-$user_id = $json_object->{"events"}[0]->{"source"}->{"userid"};
+$userId = $json_object->{"events"}[0]->{"source"}->{"userId"};
 
 if($input_message_type != "text")
 	exit;
