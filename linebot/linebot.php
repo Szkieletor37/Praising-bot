@@ -39,13 +39,7 @@ default:
 	exit;
 }
 
-switch($mode) {
-case GOODMORNING:
-	$return_message_text = return_text_message($mode);
-	break;
-default:
-	exit;
-}
+$return_message_text = return_text_message($mode);
 
 // insert usleep() to make bot's reply look real
 $random = rand(400, 700); 
