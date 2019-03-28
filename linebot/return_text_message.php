@@ -5,6 +5,9 @@ include_once "database.php";
 include_once "mode.php";
 
 return_text_message(GOODMORNING);
+return_text_message(OUTGOING);
+return_text_message(COMEHOME);
+return_text_message(GOODNIGHT);
 
 function return_text_message($mode) {
 

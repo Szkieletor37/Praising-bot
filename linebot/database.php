@@ -13,7 +13,7 @@ $messages = [
 					"今日も"
 				],
 				"text_segment2" => [
-					"生きてて", "起きられて", "忘れずに肺呼吸できて"
+					"生きてて", "起きられて"
 				],
 				"text_segment3" => [
 					"えらいえらい！", "えらいね！", "立派だね！"
@@ -21,7 +21,7 @@ $messages = [
 			],
 			"pattern2" =>		[
 				"text_segment1" => [
-					"生きてる", "呼吸してる", "起きてる"
+					"生きてる", "起きてる"
 				],
 				"text_segment2" => [
 					"ってだけで"
@@ -32,7 +32,7 @@ $messages = [
 			],
 			"pattern3" => 	[
 				"text_segment1" => [
-					"肺呼吸", "まばたき", "あいさつ"
+					"あいさつ"
 				],
 				"text_segment2" => [
 					"できるなんて、", "できてるね。"
@@ -43,28 +43,59 @@ $messages = [
 			],
 			"pattern4" => 	[
 				"text_segment1" => [
-					"大丈夫、"
+					"大丈夫、きっといい一日になるよ！",
+					"今日も元気出して行こー！ おー！",
+					"あ、起きた？ じゃあ、ご褒美に頭なでてあげる！",
+					"えい、ぎゅー！ え、これ？ 生きててくれてありがとうのハグ！",
+					"よく眠れた？ 眠るのって気持ちいいよね！",
+					"ごはん食べる？ 食事は元気の源だよ！"
 				],
 				"text_segment2" => [
-					"きっと"
+					""
 				],
 				"text_segment3" => [
-					"いい一日になるよ！"
-				],
-			],
-			"pattern5" => 	[
-				"text_segment1" => [
-					"今日も"
-				],
-				"text_segment2" => [
-					"元気出して"
-				],
-				"text_segment3" => [
-					"いこー！"
+					""
 				],
 			],
 		],
-		"GOODNIGHT" => [
+		OUTGOING => [
+			"pattern1" =>	[
+				"text_segment1" => [
+					"行ってらっしゃい！ 帰り、待ってるからね！"
+				],
+				"text_segment2" => [
+					""
+				],
+				"text_segment3" => [
+					""
+				],
+			],
+		],
+		COMEHOME => [
+			"pattern1" =>	[
+				"text_segment1" => [
+					"おかえり！ 今日もお疲れさま！"
+				],
+				"text_segment2" => [
+					""
+				],
+				"text_segment3" => [
+					""
+				],
+			],
+		],
+		GOODNIGHT => [
+			"pattern1" =>	[
+				"text_segment1" => [
+					"おやすみ！ いい夢見られるといいね！"
+				],
+				"text_segment2" => [
+					""
+				],
+				"text_segment3" => [
+					""
+				],
+			],
 		],
 	],
 	//"Noa" => 	[
