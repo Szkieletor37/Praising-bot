@@ -1,5 +1,6 @@
 {
 	"require": {
-		"phan/phan":"^1.2"
+		"phan/phan":"^1.2",
+		"vlucas/phpdotenv": "^3.3"
 	}
 }
