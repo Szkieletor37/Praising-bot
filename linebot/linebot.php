@@ -3,13 +3,23 @@ include_once "return_text_message.php";
 include_once "mode.php";
 include_once "db.php";
 include_once "personal.php";
+require '../vendor/autoload.php';
 
 echo "Hello, Heroku!";
 
+if (getenv('APP_ENV') == 'development') {
+	// use phpdotenv
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
+}
 //heroku
-//$accessToken = 'mWbndsAPe5j0UvAvpkll+GfFdluug8RKZiLLta2cd3qNBiK/wF1OgA1ifzxFYZ8QwvaF3wJJCUL2Pvtfwxi3o+P+B7ImZt4dR6XZpY36/7Eai38V0jucNFH4U2Xhd1ZfZBcTfuqKeYmYGxOzFTdT0AdB04t89/1O/w1cDnyilFU=';
-//test
-$accessToken =  'y7LKpDt4OxHVS9qafyajq6bWlyc7H/rni0bXY65TIOZ0uJbRlflXub10GneSJebGUgjINXHXUasop6VJORPXtYAI8dsE1lDjlPdGgpNetRriWpB7xWc5Bwysq1ZIJ7i8dXggvFXCHP4WCxtw4TuXpwdB04t89/1O/w1cDnyilFU=';
+
+if (getenv('APP_ENV') == 'production') {
+	$accessToken = getenv('ACCESSTOKEN');
+} else if (getenv('APP_ENV') == 'development') {
+	// from .env
+	$accessToken = getenv('ACCESSTOKEN_TEST');
+}
 
 $json_input = file_get_contents('php://input');
 $json_object = json_decode($json_input);
@@ -19,7 +29,7 @@ $input_message_type = $json_object->{"events"}[0]->{"message"}->{"type"};
 $message_text = $json_object->{"events"}[0]->{"message"}->{"text"};
 $userId = $json_object->{"events"}[0]->{"source"}->{"userId"};
 
-//createUserIfNotExist($userId);
+createUserIfNotExist($userId);
 
 if($input_message_type != "text")
 	exit;

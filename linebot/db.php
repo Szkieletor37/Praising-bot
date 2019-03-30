@@ -1,6 +1,6 @@
 <?php
 
-if(getenv('database_url')) {
+if(getenv('DATABASE_URL')) {
 
 	// Heroku postgres Add-on
 	$url = parse_url(getenv('DATABASE_URL'));
@@ -12,8 +12,8 @@ if(getenv('database_url')) {
 
 	// test
 	$host = "localhost";
-	$user = "szkieletor";
-	$pass = "balabushka31";
+	$user = getenv('USER_LOCAL');
+	$pass = getenv('USER_PASSWORD');
 	$db = "test";
 }
 
